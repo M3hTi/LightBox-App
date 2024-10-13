@@ -77,7 +77,7 @@ const createLightBox = function (){
         const play = document.createElement('button')
         play.id = "play-pause-btn"
         play.classList.add('control-btn')
-        play.innerHTML = 'Play'
+        play.innerHTML = 'Play/Pause'
 
         controlsContainer.appendChild(play)
 
@@ -194,7 +194,25 @@ const createLightBox = function (){
         
         //     currentSlideSpan.textContent = `${currentImg}`;
         // });
-   } catch (error) {
+
+        let timeID;
+
+        let isPlaying = false
+
+        play.onclick = function () {
+            if(!isPlaying){
+                showNext()
+                timeID = setInterval(showNext, 1500)
+                isPlaying = true
+            }else{
+                clearInterval(timeID)
+                isPlaying = false
+            }
+        }
+
+
+
+    } catch (error) {
         console.error(error)
    }
 }
