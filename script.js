@@ -211,7 +211,58 @@ const createLightBox = function (){
         }
 
 
+        const images = document.querySelectorAll('img')
+        
+        images.forEach(image => {
+            image.addEventListener('click', createOverlay)
+        })
 
+
+
+        function createOverlay () {
+            const overlay = document.createElement('div')
+            overlay.id = "overlay"
+            overlay.classList.add('overlay')
+            // Make the overlay visible
+            overlay.style.display = 'block';
+
+            const overlayContent = document.createElement('div')
+            overlayContent.classList.add('overlay-content')
+            
+
+            overlay.appendChild(overlayContent)
+
+            const image = this.cloneNode("true")
+            image.id = "overlay-image"
+            image.src = this.src
+            image.alt = this.alt
+
+            overlayContent.appendChild(image)
+
+
+            const paragraph = document.createElement('p')
+            paragraph.id = "overlay-caption"
+            paragraph.textContent = this.alt
+
+            overlayContent.appendChild(paragraph)
+
+            const closeButton = document.createElement('button')
+            closeButton.id = "close-button"
+            closeButton.innerHTML = '&times;'
+
+            overlayContent.appendChild(closeButton)
+
+
+            document.body.appendChild(overlay)
+
+
+            closeButton.addEventListener('click', function(){
+                // console.log(this);
+                document.body.removeChild(overlay)
+            })
+
+        }
+        
     } catch (error) {
         console.error(error)
    }
